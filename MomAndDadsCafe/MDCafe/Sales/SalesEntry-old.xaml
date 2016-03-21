@@ -1,0 +1,104 @@
+﻿<Window x:Class="MDCafe.Sales.SalesEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MDCafe.Sales"
+        mc:Ignorable="d"
+        Title="MainWindow" Background="Black"  Width="1200">
+    <Grid x:Name="GridMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Button x:Name="btAddRow" Content="Add New Row"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20"
+                    Margin="5" Click="btAddRow_Click"/>
+        </StackPanel>
+        <StackPanel  Orientation="Horizontal" Grid.Row="1" Name="Panel1">
+            <ComboBox x:Name="Panel1cboCustomer1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True"  Margin="5"
+                      ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedValuePath="id" SelectedValue="{Binding DataContext.CustomerId, ElementName=Panel1}">
+            </ComboBox>
+            
+            <TextBox x:Name="txtTotalAmt1" Width="50" VerticalAlignment="Top" Height="23" Margin="5" IsEnabled="False"  Text="{Binding TotalAmount}"/>
+            
+            <ComboBox x:Name="cbo1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5" 
+                      ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="code" 
+                      SelectedItem="{Binding SaleItemsDetailsCollection[0].SelectedItemItem}"/>
+            <TextBox x:Name="txtCbo1" Width="50" VerticalAlignment="Top" Height="23" Margin="5" 
+                      Text="{Binding SaleItemsDetailsCollection[0].ItemQty}"/>
+            <ComboBox x:Name="cbo2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                       SelectedItem="{Binding SaleItemsDetailsCollection[1].SelectedItemItem}"/>
+            
+            <TextBox x:Name="txtCbo2" Width="50" VerticalAlignment="Top" Height="23" Margin="5" Text="{Binding SaleItemsDetailsCollection[1].ItemQty}"/>
+            <ComboBox x:Name="cbo3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                      SelectedItem="{Binding SaleItemsDetailsCollection[2].SelectedItemItem}"/>
+            <TextBox x:Name="txtCbo3" Width="50" VerticalAlignment="Top" Height="23" Margin="5" Text="{Binding SaleItemsDetailsCollection[2].ItemQty}"/>
+            <ComboBox x:Name="cbo4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                      SelectedItem="{Binding SaleItemsDetailsCollection[3].SelectedItemItem}"/>
+            <TextBox x:Name="txtCbo4" Width="50" VerticalAlignment="Top" Height="23" Margin="5" Text="{Binding SaleItemsDetailsCollection[3].ItemQty}"/>
+            <ComboBox x:Name="cbo5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                      SelectedItem="{Binding SaleItemsDetailsCollection[4].SelectedItemItem}"/>
+            <TextBox x:Name="txtCbo5" Width="50" VerticalAlignment="Top" Height="23" Margin="5" Text="{Binding SaleItemsDetailsCollection[4].ItemQty}"/>
+            <ComboBox x:Name="cbo6" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                      SelectedItem="{Binding SaleItemsDetailsCollection[5].SelectedItemItem}"/>
+            <TextBox x:Name="txtCbo6" Width="50" VerticalAlignment="Top" Height="23" Margin="5" Text="{Binding SaleItemsDetailsCollection[5].ItemQty}"/>
+            <ComboBox x:Name="cbo7" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                      SelectedItem="{Binding SaleItemsDetailsCollection[6].SelectedItemItem}"/>
+            <TextBox x:Name="txtCbo7" Width="50" VerticalAlignment="Top" Height="23" Margin="5" Text="{Binding SaleItemsDetailsCollection[6].ItemQty}"/>
+
+            <Button x:Name="btnDone" Content="Done"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5" Command="Print">
+                <Button.CommandBindings>
+                    <CommandBinding Command="Print" CanExecute="BtnDoneCanExecute" Executed="BtnDoneExecuted"/>
+                </Button.CommandBindings>
+            </Button>
+
+        </StackPanel>
+        <!--<StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1">
+            <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True">
+                <ComboBoxItem Content="Person1" HorizontalAlignment="Left" Width="148"/>
+            </ComboBox>
+            <ComboBox x:Name="cbo21" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo22" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo27" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+
+            <Button x:Name="btnSave2" Content="Button"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5,0,0,5"/>
+            <Button x:Name="btnPrint2" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5,0,0,5"/>
+
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left"  Orientation="Horizontal" Grid.Row="2">
+            <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True">
+                <ComboBoxItem Content="Person1" HorizontalAlignment="Left" Width="148"/>
+            </ComboBox>
+            <ComboBox x:Name="cbo31" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo33" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo34" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo35" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo36" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+            <ComboBox x:Name="cbo37" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" IsEditable="True"/>
+
+            <Button x:Name="btnSave3" Content="Button"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5,0,0,5"/>
+            <Button x:Name="btnPrint3" Content="Button" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Margin="5,0,0,5"/>
+
+        </StackPanel>-->
+
+    </Grid>
+</Window>

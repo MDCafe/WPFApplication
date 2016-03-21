@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accounts">
+          <Key>
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="OpeningBalance" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="ClosingBalance" Type="decimal" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="Description" Type="varchar" MaxLength="45" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="45" />
+          <Property Name="IsExistingCustomer" Type="bool" />
+          <Property Name="BalanceAmount" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="customertransactions">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="TopUpAmount" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="Date" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="items">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="UnitOfMeasure" Type="varchar" MaxLength="10" />
+          <Property Name="CurrentPrice" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="Category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="10" />
+          <Property Name="Quantity" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="SaleDate" Type="datetime" Precision="0" />
+          <Property Name="PriceOverride" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="CurrentPrice" Type="decimal" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="accounts" EntityType="Self.accounts" Schema="mdcafe" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="mdcafe" store:Type="Tables" />
+          <EntitySet Name="customertransactions" EntityType="Self.customertransactions" Schema="mdcafe" store:Type="Tables" />
+          <EntitySet Name="items" EntityType="Self.items" Schema="mdcafe" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="mdcafe" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accounts" EntityType="Model1.account" />
+          <EntitySet Name="customers" EntityType="Model1.customer" />
+          <EntitySet Name="customertransactions" EntityType="Model1.customertransaction" />
+          <EntitySet Name="items" EntityType="Model1.item" />
+          <EntitySet Name="sales" EntityType="Model1.sale" />
+        </EntityContainer>
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="OpeningBalance" Type="Decimal" />
+          <Property Name="ClosingBalance" Type="Decimal" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IsExistingCustomer" Type="Boolean" />
+          <Property Name="BalanceAmount" Type="Decimal" />
+        </EntityType>
+        <EntityType Name="customertransaction">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="TopUpAmount" Type="Decimal" />
+          <Property Name="Date" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UnitOfMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentPrice" Type="Decimal" />
+          <Property Name="Category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ItemCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Decimal" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="SaleDate" Type="DateTime" />
+          <Property Name="PriceOverride" Type="Decimal" />
+          <Property Name="CurrentPrice" Type="Decimal" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1StoreContainer">
+          <EntitySetMapping Name="accounts">
+            <EntityTypeMapping TypeName="Model1.account">
+              <MappingFragment StoreEntitySet="accounts">
+                <ScalarProperty Name="ClosingBalance" ColumnName="ClosingBalance" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="Model1.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+                <ScalarProperty Name="IsExistingCustomer" ColumnName="IsExistingCustomer" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customertransactions">
+            <EntityTypeMapping TypeName="Model1.customertransaction">
+              <MappingFragment StoreEntitySet="customertransactions">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TopUpAmount" ColumnName="TopUpAmount" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="Model1.item">
+              <MappingFragment StoreEntitySet="items">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
+                <ScalarProperty Name="UnitOfMeasure" ColumnName="UnitOfMeasure" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="Model1.sale">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
+                <ScalarProperty Name="PriceOverride" ColumnName="PriceOverride" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
