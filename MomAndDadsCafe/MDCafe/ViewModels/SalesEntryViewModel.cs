@@ -20,9 +20,13 @@ namespace MDCafe.ViewModels
             var customer = GetCustomer(customerId);
 
             if (customerId == -1 || !customer.IsExistingCustomer.Value) return;
-            
-            if (customer.BalanceAmount ==null || customer.BalanceAmount < 0) throw new Exception("Balance is low :" + customer.BalanceAmount);
 
+            //if (customer.BalanceAmount == null || customer.BalanceAmount < 0)
+            //{
+            //    //throw new Exception("Balance is low :" + customer.BalanceAmount);
+            //}
+            if (customer.BalanceAmount == null)
+                customer.BalanceAmount = 0;
             customer.BalanceAmount -= amount;            
         }
 

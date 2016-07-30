@@ -20,13 +20,12 @@ namespace MDCafe.Sales
     /// </summary>
     public partial class Items : Window
     {
-        CustomerViewModel _viewModel = new CustomerViewModel();
-        //Model1Container _modelContext;
+        ItemsViewModel _viewModel = new ItemsViewModel();
 
-        public Customers()
+        public Items()
         {
             InitializeComponent();
-            CustomerListView.ItemsSource = _viewModel.ModelContext.customers.Where(c => c.IsExistingCustomer.Value == true).ToList();
+            ItemsListView.ItemsSource = _viewModel.ModelContext.items.ToList();
         }
     }
 }

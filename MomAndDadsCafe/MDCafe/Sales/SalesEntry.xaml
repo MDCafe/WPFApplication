@@ -6,17 +6,37 @@
         xmlns:local="clr-namespace:MDCafe.Sales"
         mc:Ignorable="d"
         xmlns:conv ="clr-namespace:MDCafe.Converters"
+        xmlns:validators="clr-namespace:MDCafe.Validation"
         Title="Mom and Dads Cafe" Background="Black"  Width="1200"
-        WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        
+        WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized"        
         >
     <Window.Resources>
-        <Style TargetType="TextBox" x:Key="txtStyle">
-            <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="Height" Value="23"></Setter>
+            <Style TargetType="TextBox" x:Key="txtStyle">
+                <Setter Property="Width" Value="30"></Setter>
+                <Setter Property="Height" Value="23"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            </Style>
+        <Style TargetType="ComboBox" x:Key="cboStyle">
+            <Setter Property="Width" Value="90"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="IsEditable" Value="True"></Setter>
             <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
         </Style>
+        <DataTemplate x:Key="ItemsItemTemplate" >
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="{Binding Path=Name}"  />
+                <TextBlock Text="  -  "   />
+                <TextBlock Text="{Binding Path=CurrentPrice}"/>                 
+            </StackPanel>
+        </DataTemplate>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="20">!</TextBlock>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
     </Window.Resources>
     <Grid x:Name="GridMain">
         <Grid.RowDefinitions>
@@ -36,10 +56,10 @@
             <Button x:Name="btnShowCustomers" Content="Show Customers"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20"
                     Margin="5" />
         </StackPanel>-->
-        <Menu x:Name="menu" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22"  Width="200" Grid.Row="0" Background="Black" Foreground="White">
+        <Menu x:Name="menu" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22"  Grid.Row="0" Background="Black" Foreground="White">
             <MenuItem x:Name="Add_New_Row" Header="Add New Row" Click="btAddRow_Click"/>
             <MenuItem x:Name="Add_Customers" Header="Show Customers" Click="btnShowCustomers_Click"/>
-            <MenuItem x:Name="Show_Items" Header="Show Items" Click="Show_Items_Click"/>
+            <MenuItem x:Name="Show_Items" Header="Show Items" Click="Show_Items_Click"/>            
         </Menu>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Grid.Row="1">
             <StackPanel  Orientation="Horizontal"  Name="Panel1">
@@ -47,45 +67,104 @@
                       ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedValuePath="id" SelectedValue="{Binding DataContext.CustomerId, ElementName=Panel1}">
                 </ComboBox>
 
-                <TextBox x:Name="txtTotalAmt1" Width="50" VerticalAlignment="Top" Height="23" Margin="5"
-                         IsEnabled="False"  Text="{Binding TotalAmount}"/>
+                <TextBox x:Name="txtTotalAmt1" Width="35" VerticalAlignment="Top" Height="23" Margin="5" IsEnabled="False"  Text="{Binding TotalAmount}"/>
 
-                <ComboBox x:Name="cbo1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5" 
-                      ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="code" 
-                      SelectedItem="{Binding SaleItemsDetailsCollection[0].SelectedItemItem}"/>
-                <TextBox x:Name="txtCbo1" Style="{StaticResource txtStyle}" 
-                         Text="{Binding SaleItemsDetailsCollection[0].ItemQty, Converter={conv:IntConverter}}"/>
-                
-                <ComboBox x:Name="cbo2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
-                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
-                       SelectedItem="{Binding SaleItemsDetailsCollection[1].SelectedItemItem}"/>
+                <ComboBox x:Name="cbo1" Style="{StaticResource cboStyle}"
+                      ItemsSource="{Binding ItemsCollection}"  SelectedValuePath="code" DisplayMemberPath="Description"                           
+                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[0].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
 
-                <TextBox x:Name="txtCbo2" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[1].ItemQty}"/>
-                <ComboBox x:Name="cbo3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+
+                <TextBox x:Name="txtCbo1" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[0].ItemQty, Converter={conv:IntConverter}}"/>
+
+                <ComboBox x:Name="cbo2"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
-                      SelectedItem="{Binding SaleItemsDetailsCollection[2].SelectedItemItem}"/>
-                <TextBox x:Name="txtCbo3" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[2].ItemQty}"/>
-                <ComboBox x:Name="cbo4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[1].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+
+                <TextBox x:Name="txtCbo2" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[1].ItemQty, Converter={conv:IntConverter}}"/>
+                <ComboBox x:Name="cbo3"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
-                      SelectedItem="{Binding SaleItemsDetailsCollection[3].SelectedItemItem}"/>
-                <TextBox x:Name="txtCbo4" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[3].ItemQty}"/>
-                <ComboBox x:Name="cbo5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[2].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+
+                <TextBox x:Name="txtCbo3" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[2].ItemQty, Converter={conv:IntConverter}}"/>
+                <ComboBox x:Name="cbo4"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
-                      SelectedItem="{Binding SaleItemsDetailsCollection[4].SelectedItemItem}"/>
-                <TextBox x:Name="txtCbo5" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[4].ItemQty}"/>
-                <ComboBox x:Name="cbo6" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                         Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[3].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+                <TextBox x:Name="txtCbo4" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[3].ItemQty,Converter={conv:IntConverter}}"/>
+                <ComboBox x:Name="cbo5"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
-                      SelectedItem="{Binding SaleItemsDetailsCollection[5].SelectedItemItem}"/>
-                <TextBox x:Name="txtCbo6" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[5].ItemQty}"/>
-                <ComboBox x:Name="cbo7" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True" Margin="5"
+                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[4].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+                <TextBox x:Name="txtCbo5" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[4].ItemQty,Converter={conv:IntConverter}}"/>
+                <ComboBox x:Name="cbo6"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
-                      SelectedItem="{Binding SaleItemsDetailsCollection[6].SelectedItemItem}"/>
-                <TextBox x:Name="txtCbo7" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[6].ItemQty}"/>
+                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[5].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+                <TextBox x:Name="txtCbo6" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[5].ItemQty,Converter={conv:IntConverter}}"/>
+                <ComboBox x:Name="cbo7"  Style="{StaticResource cboStyle}"
+                       ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
+                         Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <ComboBox.SelectedItem>
+                        <Binding Path="SaleItemsDetailsCollection[6].SelectedItemItem">
+                            <Binding.ValidationRules>
+                                <validators:ValidateComboxRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedItem>
+                </ComboBox>
+                <TextBox x:Name="txtCbo7" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[6].ItemQty,Converter={conv:IntConverter}}"/>
 
                 <Button x:Name="btnAddItem" Content="Add"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="5"
                     Click="btnAddItem_Click">
                 </Button>
-
+                <Button x:Name="btnAddChoc" Content="Add Choc"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="5"
+                    Click="btnAddChoc_Click">
+                </Button>
                 <Button x:Name="btnDone" Content="Done"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5" Command="Print" Tag="1">
                     <Button.CommandBindings>
                         <CommandBinding Command="Print" CanExecute="BtnDoneCanExecute" Executed="BtnDoneExecuted"/>

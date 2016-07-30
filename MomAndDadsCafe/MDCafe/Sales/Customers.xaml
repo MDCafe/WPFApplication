@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MDCafe.Sales"
         mc:Ignorable="d"
-        Title="Customers" Height="309.408" Width="601.045" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Customers List" Background="Black" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>            
         </Grid.RowDefinitions>
-        <ListView x:Name="CustomerListView" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Grid.Row="1">
+        <ListView x:Name="CustomerListView" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Grid.Row="0">
             <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Right" />

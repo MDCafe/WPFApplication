@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MDCafe.Models
 {
-    class SaleItems : BaseModel
+    public class SaleItems : BaseModel
     {
         private Decimal _totalAmount;        
         private List<item> _itemsCollection;

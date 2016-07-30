@@ -28,8 +28,8 @@ namespace MDCafe.Sales
             Panel1cboCustomer1.DataContext = _modelContext.customers.OrderBy(s => s.Name).ToList();
             //btnDone.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, BtnDoneExecuted, BtnDoneCanExecute));
 
-            var saleItems = new SaleItems();
-            
+            var saleItems = new SaleItems();            
+
             saleItems.ItemsCollection = _modelContext.items.OrderBy(s=>s.Name).ToList();
             Panel1.DataContext = saleItems;
 
@@ -214,7 +214,7 @@ namespace MDCafe.Sales
 
                 foreach (var item in saleItems.SaleItemsDetailsCollection)
                 {
-                    if (item.SelectedItemItem == null) continue;
+                    if (item.SelectedItemItem == null && item.SelectedItemItem.code == "-1") continue;
                     _modelContext.sales.Add(new sale()
                     {
                         CustomerId = saleItems.CustomerId,
@@ -256,8 +256,14 @@ namespace MDCafe.Sales
 
         private void Show_Items_Click(object sender, RoutedEventArgs e)
         {
-            Customers cust = new Customers();
-            cust.ShowDialog();
+            Items ItemsView = new Items();
+            ItemsView.ShowDialog();
+        }
+
+        private void btnAddChoc_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;                       
+
         }
     }
 }
