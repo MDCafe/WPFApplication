@@ -1,0 +1,18 @@
+﻿<Window x:Class="MDCafe.Sales.MiscItemsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MDCafe.Sales"
+        mc:Ignorable="d"
+        Title="Misc Items" Height="100" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        WindowStyle="ToolWindow" Background="#FF0E0C0C">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="133"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="txtTotalAmout" Grid.Row="0" Background="White" Margin="166,10,70,93"/>
+        <Button x:Name="btnOk"  Content="Ok" Command="Save" Margin="166,61,70,37" />
+        <Label x:Name="label" Content="Total Amount" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="94" Foreground="White"/>
+    </Grid>
+</Window>
