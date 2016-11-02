@@ -14,13 +14,13 @@ namespace MDCafe
     
     public partial class customer
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
-        public string ContactNo { get; set; }
+        public Nullable<int> ContactNo { get; set; }
         public string Email { get; set; }
         public Nullable<bool> IsExistingCustomer { get; set; }
-        public Nullable<decimal> BalanceAmount { get; set; }
+        public Nullable<float> BalanceAmount { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace MDCafe.ViewModels
             _modelContext = new Model1Container();
         }
 
-        public void BalanceCustomerAccount(int customerId, decimal amount)
+        public void BalanceCustomerAccount(int customerId, float amount)
         {
             var customer = GetCustomer(customerId);
 
@@ -32,7 +32,7 @@ namespace MDCafe.ViewModels
 
         public customer GetCustomer(int customerId)
         {
-            return _modelContext.customers.FirstOrDefault(c => c.id == customerId);
+            return _modelContext.customers.FirstOrDefault(c => c.Id == customerId);
         }
     }
 }

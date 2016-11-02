@@ -11,7 +11,7 @@ namespace MDCafe.Sales
     {
         SaleConfirmationModel _saleConfirmationModel;
 
-        public SaleConfirmation(decimal totalAmount, bool? isExistingCustomer)
+        public SaleConfirmation(float totalAmount, bool? isExistingCustomer)
         {
             InitializeComponent();
             _saleConfirmationModel = new SaleConfirmationModel(totalAmount);

@@ -15,7 +15,7 @@ namespace MDCafe
     public partial class account
     {
         public System.DateTime Date { get; set; }
-        public Nullable<decimal> OpeningBalance { get; set; }
-        public Nullable<decimal> ClosingBalance { get; set; }
+        public Nullable<float> OpeningBalance { get; set; }
+        public Nullable<float> ClosingBalance { get; set; }
     }
 }

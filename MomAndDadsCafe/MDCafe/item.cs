@@ -14,11 +14,11 @@ namespace MDCafe
     
     public partial class item
     {
-        public string code { get; set; }
+        public int code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string UnitOfMeasure { get; set; }
-        public Nullable<decimal> CurrentPrice { get; set; }
-        public string Category { get; set; }
+        public Nullable<float> CurrentPrice { get; set; }
+        public Nullable<int> CategoryId { get; set; }
     }
 }

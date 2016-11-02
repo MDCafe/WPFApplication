@@ -27,8 +27,8 @@ namespace MDCafe
     
         public DbSet<account> accounts { get; set; }
         public DbSet<customer> customers { get; set; }
-        public DbSet<customertransaction> customertransactions { get; set; }
         public DbSet<item> items { get; set; }
         public DbSet<sale> sales { get; set; }
+        public DbSet<customertransaction> customertransactions { get; set; }
     }
 }

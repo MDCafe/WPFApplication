@@ -15,11 +15,11 @@ namespace MDCafe
     public partial class sale
     {
         public int id { get; set; }
-        public string ItemCode { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
+        public Nullable<int> ItemCode { get; set; }
+        public Nullable<float> Quantity { get; set; }
         public Nullable<int> CustomerId { get; set; }
         public Nullable<System.DateTime> SaleDate { get; set; }
-        public Nullable<decimal> PriceOverride { get; set; }
-        public Nullable<decimal> CurrentPrice { get; set; }
+        public Nullable<float> PriceOverride { get; set; }
+        public Nullable<float> CurrentPrice { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace MDCafe.Models
 {
     public class SaleItems : BaseModel
     {
-        private Decimal _totalAmount;        
+        private float _totalAmount;        
         private List<item> _itemsCollection;
         private List<SaleItemsDetails> _saleItemsDetailsCollection;   
         private int _customerId;        
@@ -37,21 +37,21 @@ namespace MDCafe.Models
             {
                 if (e.PropertyName == "SelectedItemItem")
                 {
-                    TotalAmount -= (decimal)(saleItesmDetails.PreviousSelectedItem.CurrentPrice * saleItesmDetails.ItemQty);
+                    TotalAmount -= (float)(saleItesmDetails.PreviousSelectedItem.CurrentPrice * saleItesmDetails.ItemQty);
                 }
                 else
                 {
                     if(saleItesmDetails.SelectedItemItem !=null)
-                        TotalAmount -= (decimal)(saleItesmDetails.SelectedItemItem.CurrentPrice * saleItesmDetails.PrevItemQty);
+                        TotalAmount -= (float)(saleItesmDetails.SelectedItemItem.CurrentPrice * saleItesmDetails.PrevItemQty);
                 }
             }
             //calculate only if selected item is not null
             if (saleItesmDetails.SelectedItemItem !=null)
-                TotalAmount += (decimal)(saleItesmDetails.SelectedItemItem.CurrentPrice * saleItesmDetails.ItemQty);
+                TotalAmount += (float)(saleItesmDetails.SelectedItemItem.CurrentPrice * saleItesmDetails.ItemQty);
 
         }
 
-        public Decimal TotalAmount
+        public float TotalAmount
         {
             get { return _totalAmount; }
             set

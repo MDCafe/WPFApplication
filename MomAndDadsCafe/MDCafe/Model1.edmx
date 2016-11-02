@@ -10,59 +10,67 @@
             <PropertyRef Name="Date" />
           </Key>
           <Property Name="Date" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="OpeningBalance" Type="decimal" Precision="10" Scale="0" />
-          <Property Name="ClosingBalance" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="OpeningBalance" Type="float" />
+          <Property Name="ClosingBalance" Type="float" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="45" />
           <Property Name="Description" Type="varchar" MaxLength="45" />
           <Property Name="Address" Type="varchar" MaxLength="500" />
-          <Property Name="ContactNo" Type="varchar" MaxLength="15" />
+          <Property Name="ContactNo" Type="int" />
           <Property Name="Email" Type="varchar" MaxLength="45" />
           <Property Name="IsExistingCustomer" Type="bool" />
-          <Property Name="BalanceAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="BalanceAmount" Type="float" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.mdcafe.customertransactions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="customertransactions">
           <Key>
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="int" Nullable="false" />
-          <Property Name="TopUpAmount" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="TopUpAmount" Type="float" />
           <Property Name="Date" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="items">
           <Key>
             <PropertyRef Name="code" />
           </Key>
-          <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="varchar" MaxLength="200" />
-          <Property Name="UnitOfMeasure" Type="varchar" MaxLength="10" />
-          <Property Name="CurrentPrice" Type="decimal" Precision="10" Scale="0" />
-          <Property Name="Category" Type="varchar" MaxLength="10" />
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="UnitOfMeasure" Type="varchar" MaxLength="45" />
+          <Property Name="CurrentPrice" Type="float" />
+          <Property Name="CategoryId" Type="int" />
         </EntityType>
         <EntityType Name="sales">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ItemCode" Type="varchar" MaxLength="10" />
-          <Property Name="Quantity" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ItemCode" Type="int" />
+          <Property Name="Quantity" Type="float" />
           <Property Name="CustomerId" Type="int" />
           <Property Name="SaleDate" Type="datetime" Precision="0" />
-          <Property Name="PriceOverride" Type="decimal" Precision="10" Scale="0" />
-          <Property Name="CurrentPrice" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="PriceOverride" Type="float" />
+          <Property Name="CurrentPrice" Type="float" />
         </EntityType>
         <EntityContainer Name="Model1StoreContainer">
           <EntitySet Name="accounts" EntityType="Self.accounts" Schema="mdcafe" store:Type="Tables" />
           <EntitySet Name="customers" EntityType="Self.customers" Schema="mdcafe" store:Type="Tables" />
-          <EntitySet Name="customertransactions" EntityType="Self.customertransactions" Schema="mdcafe" store:Type="Tables" />
           <EntitySet Name="items" EntityType="Self.items" Schema="mdcafe" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="mdcafe" store:Type="Tables" />
+          <EntitySet Name="customertransactions" EntityType="Self.customertransactions" store:Type="Tables" store:Schema="mdcafe">
+            <DefiningQuery>SELECT
+`customertransactions`.`CustomerId`, 
+`customertransactions`.`TopUpAmount`, 
+`customertransactions`.`Date`
+FROM `customertransactions` AS `customertransactions`</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -71,63 +79,63 @@
         <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="accounts" EntityType="Model1.account" />
           <EntitySet Name="customers" EntityType="Model1.customer" />
-          <EntitySet Name="customertransactions" EntityType="Model1.customertransaction" />
           <EntitySet Name="items" EntityType="Model1.item" />
           <EntitySet Name="sales" EntityType="Model1.sale" />
+          <EntitySet Name="customertransactions" EntityType="Model1.customertransaction" />
         </EntityContainer>
         <EntityType Name="account">
           <Key>
             <PropertyRef Name="Date" />
           </Key>
           <Property Name="Date" Type="DateTime" Nullable="false" />
-          <Property Name="OpeningBalance" Type="Decimal" />
-          <Property Name="ClosingBalance" Type="Decimal" />
+          <Property Name="OpeningBalance" Type="Single" />
+          <Property Name="ClosingBalance" Type="Single" />
         </EntityType>
         <EntityType Name="customer">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="IsExistingCustomer" Type="Boolean" />
-          <Property Name="BalanceAmount" Type="Decimal" />
-        </EntityType>
-        <EntityType Name="customertransaction">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="TopUpAmount" Type="Decimal" />
-          <Property Name="Date" Type="DateTime" />
+          <Property Name="BalanceAmount" Type="Single" />
         </EntityType>
         <EntityType Name="item">
           <Key>
             <PropertyRef Name="code" />
           </Key>
-          <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UnitOfMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CurrentPrice" Type="Decimal" />
-          <Property Name="Category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UnitOfMeasure" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentPrice" Type="Single" />
+          <Property Name="CategoryId" Type="Int32" />
         </EntityType>
         <EntityType Name="sale">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="ItemCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Decimal" />
+          <Property Name="ItemCode" Type="Int32" />
+          <Property Name="Quantity" Type="Single" />
           <Property Name="CustomerId" Type="Int32" />
           <Property Name="SaleDate" Type="DateTime" />
-          <Property Name="PriceOverride" Type="Decimal" />
-          <Property Name="CurrentPrice" Type="Decimal" />
+          <Property Name="PriceOverride" Type="Single" />
+          <Property Name="CurrentPrice" Type="Single" />
         </EntityType>
-      </Schema>
+        <EntityType Name="customertransaction">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="TopUpAmount" Type="Single" />
+          <Property Name="Date" Type="DateTime" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -154,23 +162,14 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="customertransactions">
-            <EntityTypeMapping TypeName="Model1.customertransaction">
-              <MappingFragment StoreEntitySet="customertransactions">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="TopUpAmount" ColumnName="TopUpAmount" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="items">
             <EntityTypeMapping TypeName="Model1.item">
               <MappingFragment StoreEntitySet="items">
-                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
                 <ScalarProperty Name="UnitOfMeasure" ColumnName="UnitOfMeasure" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -189,6 +188,15 @@
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customertransactions">
+            <EntityTypeMapping TypeName="Model1.customertransaction">
+              <MappingFragment StoreEntitySet="customertransactions">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TopUpAmount" ColumnName="TopUpAmount" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

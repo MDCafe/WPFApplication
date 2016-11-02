@@ -5,23 +5,23 @@ namespace MDCafe.Models
 {
     class SaleConfirmationModel : BaseModel
     {
-        private decimal _totalAmount;
-        private Decimal _amountPaid;
-        private decimal _balance;
+        private float _totalAmount;
+        private float _amountPaid;
+        private float _balance;
         private bool? _isExistingCustomer;
 
-        public SaleConfirmationModel(decimal totalAmount)
+        public SaleConfirmationModel(float totalAmount)
         {
             _totalAmount = totalAmount;
         }
 
-        public decimal TotalAmount
+        public float TotalAmount
         {
             get { return _totalAmount; }
             set { _totalAmount = value; }
         }
 
-        public Decimal AmountPaid
+        public float AmountPaid
         {
             get { return _amountPaid; }
             set
@@ -32,7 +32,7 @@ namespace MDCafe.Models
             }
         }
 
-        public decimal Balance
+        public float Balance
         {
             get { return _balance; }
             set

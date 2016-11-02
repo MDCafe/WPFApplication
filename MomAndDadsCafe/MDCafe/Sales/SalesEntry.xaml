@@ -73,7 +73,7 @@
                       ItemsSource="{Binding ItemsCollection}"  SelectedValuePath="code" DisplayMemberPath="Description"                           
                           Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <ComboBox.SelectedItem>
-                        <Binding Path="SaleItemsDetailsCollection[0].SelectedItemItem">
+                        <Binding Path="SaleItemsDetailsCollection[0].SelectedItemItem" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:ValidateComboxRule/>
                             </Binding.ValidationRules>
@@ -82,13 +82,14 @@
                 </ComboBox>
 
 
-                <TextBox x:Name="txtCbo1" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[0].ItemQty, Converter={conv:IntConverter}}"/>
+                <TextBox x:Name="txtCbo1" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[0].ItemQty, Converter={conv:IntConverter},
+                    NotifyOnValidationError=True}"/>
 
                 <ComboBox x:Name="cbo2"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
                         Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <ComboBox.SelectedItem>
-                        <Binding Path="SaleItemsDetailsCollection[1].SelectedItemItem">
+                        <Binding Path="SaleItemsDetailsCollection[1].SelectedItemItem" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:ValidateComboxRule/>
                             </Binding.ValidationRules>
@@ -96,12 +97,13 @@
                     </ComboBox.SelectedItem>
                 </ComboBox>
 
-                <TextBox x:Name="txtCbo2" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[1].ItemQty, Converter={conv:IntConverter}}"/>
+                <TextBox x:Name="txtCbo2" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[1].ItemQty, 
+                    Converter={conv:IntConverter}, NotifyOnValidationError=True}"/>
                 <ComboBox x:Name="cbo3"  Style="{StaticResource cboStyle}"
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
                           Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <ComboBox.SelectedItem>
-                        <Binding Path="SaleItemsDetailsCollection[2].SelectedItemItem">
+                        <Binding Path="SaleItemsDetailsCollection[2].SelectedItemItem" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:ValidateComboxRule/>
                             </Binding.ValidationRules>
@@ -126,7 +128,7 @@
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
                           Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <ComboBox.SelectedItem>
-                        <Binding Path="SaleItemsDetailsCollection[4].SelectedItemItem">
+                        <Binding Path="SaleItemsDetailsCollection[4].SelectedItemItem" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:ValidateComboxRule/>
                             </Binding.ValidationRules>
@@ -138,7 +140,7 @@
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
                           Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <ComboBox.SelectedItem>
-                        <Binding Path="SaleItemsDetailsCollection[5].SelectedItemItem">
+                        <Binding Path="SaleItemsDetailsCollection[5].SelectedItemItem" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:ValidateComboxRule/>
                             </Binding.ValidationRules>
@@ -150,7 +152,7 @@
                        ItemsSource="{Binding ItemsCollection}" DisplayMemberPath="Description" SelectedValuePath="Code"
                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <ComboBox.SelectedItem>
-                        <Binding Path="SaleItemsDetailsCollection[6].SelectedItemItem">
+                        <Binding Path="SaleItemsDetailsCollection[6].SelectedItemItem" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <validators:ValidateComboxRule/>
                             </Binding.ValidationRules>
@@ -160,12 +162,9 @@
                 <TextBox x:Name="txtCbo7" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[6].ItemQty,Converter={conv:IntConverter}}"/>
 
                 <Button x:Name="btnAddItem" Content="Add"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="5"
-                    Click="btnAddItem_Click">
+                    Click="btnAddItem_Click" Height="25">
                 </Button>
-                <Button x:Name="btnAddChoc" Content="Add Choc"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="5"
-                    Click="btnAddChoc_Click">
-                </Button>
-                <Button x:Name="btnDone" Content="Done"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5" Command="Print" Tag="1">
+                <Button x:Name="btnDone" Content="Done"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="5" Command="Print" Tag="1" Height="25">
                     <Button.CommandBindings>
                         <CommandBinding Command="Print" CanExecute="BtnDoneCanExecute" Executed="BtnDoneExecuted"/>
                     </Button.CommandBindings>

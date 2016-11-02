@@ -14,6 +14,7 @@ namespace MDCafe.Sales
     {
         SalesEntryViewModel _viewModel = new SalesEntryViewModel();
         Model1Container _modelContext;
+        int errorCount;
 
         public SalesEntry()
         {
@@ -24,6 +25,7 @@ namespace MDCafe.Sales
         public void Initialize()
         {
 
+            AddHandler(System.Windows.Controls.Validation.ErrorEvent, new RoutedEventHandler(OnErrorEvent));
             _modelContext = _viewModel.ModelContext;
             Panel1cboCustomer1.DataContext = _modelContext.customers.OrderBy(s => s.Name).ToList();
             //btnDone.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, BtnDoneExecuted, BtnDoneCanExecute));
@@ -214,7 +216,7 @@ namespace MDCafe.Sales
 
                 foreach (var item in saleItems.SaleItemsDetailsCollection)
                 {
-                    if (item.SelectedItemItem == null && item.SelectedItemItem.code == "-1") continue;
+                    if (item.SelectedItemItem == null && item.SelectedItemItem.code == -1) continue;
                     _modelContext.sales.Add(new sale()
                     {
                         CustomerId = saleItems.CustomerId,
@@ -264,6 +266,30 @@ namespace MDCafe.Sales
         {
             var button = sender as Button;                       
 
+        }
+
+        
+        private void OnErrorEvent(object sender, RoutedEventArgs e)
+        {
+            var validationEventArgs = e as ValidationErrorEventArgs;
+            if (validationEventArgs == null)
+                throw new Exception("Unexpected event args");
+            switch (validationEventArgs.Action)
+            {
+                case ValidationErrorEventAction.Added:
+                    {
+                        errorCount++; break;
+                    }
+                case ValidationErrorEventAction.Removed:
+                    {
+                        errorCount--; break;
+                    }
+                default:
+                    {
+                        throw new Exception("Unknown action");
+                    }
+            }
+            btnDone.IsEnabled = errorCount == 0;
         }
     }
 }

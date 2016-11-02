@@ -15,7 +15,7 @@ namespace MDCafe
     public partial class customertransaction
     {
         public int CustomerId { get; set; }
-        public Nullable<decimal> TopUpAmount { get; set; }
+        public Nullable<float> TopUpAmount { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
     }
 }
