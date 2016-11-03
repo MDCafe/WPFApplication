@@ -11,13 +11,13 @@
         WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized"        
         >
     <Window.Resources>
-            <Style TargetType="TextBox" x:Key="txtStyle">
+        <Style TargetType="TextBox" x:Key="txtStyle" BasedOn="{StaticResource {x:Type TextBox}}" >
                 <Setter Property="Width" Value="30"></Setter>
                 <Setter Property="Height" Value="23"></Setter>
                 <Setter Property="Margin" Value="5"></Setter>
                 <Setter Property="VerticalAlignment" Value="Top"></Setter>
             </Style>
-        <Style TargetType="ComboBox" x:Key="cboStyle">
+        <Style TargetType="ComboBox" x:Key="cboStyle" BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="Width" Value="90"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="IsEditable" Value="True"></Setter>
@@ -40,7 +40,7 @@
     </Window.Resources>
     <Grid x:Name="GridMain">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -64,10 +64,11 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Grid.Row="1">
             <StackPanel  Orientation="Horizontal"  Name="Panel1">
                 <ComboBox x:Name="Panel1cboCustomer1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsEditable="True"  Margin="5"
-                      ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedValuePath="id" SelectedValue="{Binding DataContext.CustomerId, ElementName=Panel1}">
+                      ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding DataContext.CustomerId, ElementName=Panel1}">
                 </ComboBox>
 
-                <TextBox x:Name="txtTotalAmt1" Width="35" VerticalAlignment="Top" Height="23" Margin="5" IsEnabled="False"  Text="{Binding TotalAmount}"/>
+                <TextBox x:Name="txtTotalAmt1" Width="35" VerticalAlignment="Top" Height="23" Margin="5" IsEnabled="False"  
+                         Foreground="White" Text="{Binding TotalAmount}"/>
 
                 <ComboBox x:Name="cbo1" Style="{StaticResource cboStyle}"
                       ItemsSource="{Binding ItemsCollection}"  SelectedValuePath="code" DisplayMemberPath="Description"                           
@@ -80,7 +81,6 @@
                         </Binding>
                     </ComboBox.SelectedItem>
                 </ComboBox>
-
 
                 <TextBox x:Name="txtCbo1" Style="{StaticResource txtStyle}" Text="{Binding SaleItemsDetailsCollection[0].ItemQty, Converter={conv:IntConverter},
                     NotifyOnValidationError=True}"/>

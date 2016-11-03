@@ -13,6 +13,13 @@
           <Property Name="OpeningBalance" Type="float" />
           <Property Name="ClosingBalance" Type="float" />
         </EntityType>
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="customers">
           <Key>
             <PropertyRef Name="Id" />
@@ -51,7 +58,7 @@ warning 6002: The table/view 'def.mdcafe.customertransactions' does not have a p
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ItemCode" Type="int" />
           <Property Name="Quantity" Type="float" />
           <Property Name="CustomerId" Type="int" />
@@ -59,8 +66,21 @@ warning 6002: The table/view 'def.mdcafe.customertransactions' does not have a p
           <Property Name="PriceOverride" Type="float" />
           <Property Name="CurrentPrice" Type="float" />
         </EntityType>
+        <Association Name="FK_categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="items" Type="Self.items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="items">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Model1StoreContainer">
           <EntitySet Name="accounts" EntityType="Self.accounts" Schema="mdcafe" store:Type="Tables" />
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="mdcafe" store:Type="Tables" />
           <EntitySet Name="customers" EntityType="Self.customers" Schema="mdcafe" store:Type="Tables" />
           <EntitySet Name="items" EntityType="Self.items" Schema="mdcafe" store:Type="Tables" />
           <EntitySet Name="sales" EntityType="Self.sales" Schema="mdcafe" store:Type="Tables" />
@@ -71,6 +91,10 @@ warning 6002: The table/view 'def.mdcafe.customertransactions' does not have a p
 `customertransactions`.`Date`
 FROM `customertransactions` AS `customertransactions`</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_categories" Association="Self.FK_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="items" EntitySet="items" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -82,6 +106,11 @@ FROM `customertransactions` AS `customertransactions`</DefiningQuery>
           <EntitySet Name="items" EntityType="Model1.item" />
           <EntitySet Name="sales" EntityType="Model1.sale" />
           <EntitySet Name="customertransactions" EntityType="Model1.customertransaction" />
+          <EntitySet Name="categories" EntityType="Model1.category" />
+          <AssociationSet Name="FK_categories" Association="Model1.FK_categories">
+            <End Role="category" EntitySet="categories" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="account">
           <Key>
@@ -114,6 +143,7 @@ FROM `customertransactions` AS `customertransactions`</DefiningQuery>
           <Property Name="UnitOfMeasure" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="CurrentPrice" Type="Single" />
           <Property Name="CategoryId" Type="Int32" />
+          <NavigationProperty Name="category" Relationship="Model1.FK_categories" FromRole="item" ToRole="category" />
         </EntityType>
         <EntityType Name="sale">
           <Key>
@@ -135,6 +165,26 @@ FROM `customertransactions` AS `customertransactions`</DefiningQuery>
           <Property Name="TopUpAmount" Type="Single" />
           <Property Name="Date" Type="DateTime" />
         </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="items" Relationship="Model1.FK_categories" FromRole="category" ToRole="item" />
+        </EntityType>
+        <Association Name="FK_categories">
+          <End Type="Model1.category" Role="category" Multiplicity="0..1" />
+          <End Type="Model1.item" Role="item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -197,6 +247,14 @@ FROM `customertransactions` AS `customertransactions`</DefiningQuery>
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="TopUpAmount" ColumnName="TopUpAmount" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="Model1.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

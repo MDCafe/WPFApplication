@@ -30,5 +30,6 @@ namespace MDCafe
         public DbSet<item> items { get; set; }
         public DbSet<sale> sales { get; set; }
         public DbSet<customertransaction> customertransactions { get; set; }
+        public DbSet<category> categories { get; set; }
     }
 }

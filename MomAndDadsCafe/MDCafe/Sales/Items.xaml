@@ -5,22 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MDCafe.Sales"
         mc:Ignorable="d"
-        Title="Items" Background="Black"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Items" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <!--<RowDefinition Height="Auto"/>-->
         </Grid.RowDefinitions>
         <!--<ScrollViewer HorizontalScrollBarVisibility="Visible"  HorizontalAlignment="Stretch"  VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" Grid.Row="0">-->
-        <ListView x:Name="ItemsListView"  Grid.Row="0" Background="Black">
-                <ListView.ItemContainerStyle>
+        <ListView x:Name="ItemsListView"  Grid.Row="0">
+                <!--<ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Left" />
                     </Style>
-                </ListView.ItemContainerStyle>
+                </ListView.ItemContainerStyle>-->
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Description" Width="75" DisplayMemberBinding="{Binding Description}" />
                         <GridViewColumn Header="Unit of measure" Width="150" DisplayMemberBinding="{Binding UnitOfMeasure}"/>
                         <GridViewColumn Header="Current Price" Width="150" DisplayMemberBinding="{Binding CurrentPrice}"/>

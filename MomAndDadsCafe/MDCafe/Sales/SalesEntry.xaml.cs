@@ -216,7 +216,7 @@ namespace MDCafe.Sales
 
                 foreach (var item in saleItems.SaleItemsDetailsCollection)
                 {
-                    if (item.SelectedItemItem == null && item.SelectedItemItem.code == -1) continue;
+                    if (item.SelectedItemItem == null || item.SelectedItemItem.code == -1) continue;
                     _modelContext.sales.Add(new sale()
                     {
                         CustomerId = saleItems.CustomerId,

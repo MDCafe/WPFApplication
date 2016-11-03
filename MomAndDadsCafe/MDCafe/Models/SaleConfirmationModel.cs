@@ -27,7 +27,7 @@ namespace MDCafe.Models
             set
             {
                 _amountPaid = value;
-                Balance = _amountPaid - _totalAmount;
+                Balance = _totalAmount - _amountPaid;
                 OnPropertyChanged(new PropertyChangedEventArgs("AmountPaid"));
             }
         }

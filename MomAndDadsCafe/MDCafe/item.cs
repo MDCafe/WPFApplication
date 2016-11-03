@@ -20,5 +20,7 @@ namespace MDCafe
         public string UnitOfMeasure { get; set; }
         public Nullable<float> CurrentPrice { get; set; }
         public Nullable<int> CategoryId { get; set; }
+    
+        public virtual category category { get; set; }
     }
 }
