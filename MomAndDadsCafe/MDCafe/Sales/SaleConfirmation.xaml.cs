@@ -33,7 +33,9 @@ namespace MDCafe.Sales
 
         private void SaveCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _saleConfirmationModel != null && _saleConfirmationModel.IsExistingCustomer.HasValue && _saleConfirmationModel.IsExistingCustomer.Value;
+            e.CanExecute = _saleConfirmationModel != null && _saleConfirmationModel.IsExistingCustomer.HasValue
+                            && _saleConfirmationModel.IsExistingCustomer.Value
+                            && _saleConfirmationModel.AmountPaid > 0;                            
         }
 
         private void SaveExecuted(object sender, ExecutedRoutedEventArgs e)

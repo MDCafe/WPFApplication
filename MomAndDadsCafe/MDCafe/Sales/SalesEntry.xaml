@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         xmlns:conv ="clr-namespace:MDCafe.Converters"
         xmlns:validators="clr-namespace:MDCafe.Validation"
-        Title="Mom and Dads Cafe" Background="Black"  Width="1200"
-        WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized"        
-        >
+        Title="Mom and Dads Cafe"  Width="1200"
+        WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized"  
+        Background="{StaticResource  WindowBackgroundBrush}">
     <Window.Resources>
         <Style TargetType="TextBox" x:Key="txtStyle" BasedOn="{StaticResource {x:Type TextBox}}" >
                 <Setter Property="Width" Value="30"></Setter>
@@ -40,7 +40,7 @@
     </Window.Resources>
     <Grid x:Name="GridMain">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -56,7 +56,7 @@
             <Button x:Name="btnShowCustomers" Content="Show Customers"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20"
                     Margin="5" />
         </StackPanel>-->
-        <Menu x:Name="menu" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22"  Grid.Row="0" Background="Black" Foreground="White">
+        <Menu x:Name="menu" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30"  Grid.Row="0" Foreground="White">
             <MenuItem x:Name="Add_New_Row" Header="Add New Row" Click="btAddRow_Click"/>
             <MenuItem x:Name="Add_Customers" Header="Show Customers" Click="btnShowCustomers_Click"/>
             <MenuItem x:Name="Show_Items" Header="Show Items" Click="Show_Items_Click"/>            
