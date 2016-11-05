@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MDCafe.Sales"
         mc:Ignorable="d"
-        Title="Sale Confirmation" Height="220" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        Title="Sale Confirmation" Height="275" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="ToolWindow" Background="{StaticResource  WindowBackgroundBrush}">
     <Window.CommandBindings>
         <CommandBinding Command="Print" CanExecute="PrintCanExecute" Executed="PrintExecuted" />
@@ -13,18 +13,20 @@
     </Window.CommandBindings>
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtAmountPaid}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="133"/>
+            <RowDefinition Height="165"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Name="txtTotalAmout" Grid.Row="0" Margin="166,10,10,93" Text="{Binding TotalAmount}" Foreground="White"/>
-        <TextBox Name="txtAmountPaid" Margin="166,52,10,54" Text="{Binding AmountPaid}"/>
+        <TextBox Name="txtAmountPaid" Margin="166,52,54,85" Text="{Binding AmountPaid,UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="PreviewTextInput"/>
         <Label x:Name="label" Content="Total Amount" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="94" Foreground="White"/>
         <Label x:Name="label_Copy" Content="Amount Paid" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Width="94" Foreground="White"/>
         <Label x:Name="label_Copy1" Content="Balance" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="94" Foreground="White"/>
-        <TextBox x:Name="txtBalance" Grid.Row="0" Margin="166,96,10,10" Text="{Binding Balance}" />
+        <TextBlock x:Name="txtBalance" Grid.Row="0" Margin="166,96,10,10" Text="{Binding Balance}" />
+        <Label Content="Account Balance" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="94" Foreground="White"/>
+        <TextBlock x:Name="txtCustomerBalance" Grid.Row="0" Margin="166,136,10,10" Text="{Binding CustomerAccountBal}" Visibility="{Binding IsExistingCustomer}"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button x:Name="btnPrint"  Content="Print" Command="Print"  Width="70" Height="25" Margin="40,10"/>
-            <Button x:Name="btnDeduct"  Content="Adjust Balance" Command="Save"   Width="100" Height="25"  Margin="10,12"/>
+            <Button x:Name="btnDeduct"  Content="Adjust Balance" Command="Save"   Width="100" Height="25"  Margin="10,10"/>
         </StackPanel>
     </Grid>
 </Window>

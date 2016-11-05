@@ -210,7 +210,7 @@ namespace MDCafe.Sales
                 var saleItems = stackpanel.DataContext as SaleItems;
                 var customer  = _viewModel.GetCustomer(saleItems.CustomerId);
 
-                var saleConfWindow = new SaleConfirmation(saleItems.TotalAmount, customer.IsExistingCustomer);
+                var saleConfWindow = new SaleConfirmation(saleItems.TotalAmount, customer.IsExistingCustomer, customer.BalanceAmount);
                 var dialogResult = saleConfWindow.ShowDialog();
                 if (!dialogResult.Value) return;
 

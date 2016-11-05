@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
 
 namespace MDCafe.Utility
 {
@@ -62,6 +58,12 @@ namespace MDCafe.Utility
             }
 
             return foundChild;
+        }
+
+        public static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[0-9.-]+"); //regex that matches disallowed text
+            return regex.IsMatch(text);
         }
     }
 }
